@@ -83,6 +83,7 @@ int main(int argc, char *argv[]) {
   }
 
   /* TODO: allocate memory on device */
+  double *d_x;
   HIP_ASSERT(hipMalloc(&d_x, ARRAY_LENGTH * sizeof(double)));
 
   /* TODO: copy input array from host to GPU */
