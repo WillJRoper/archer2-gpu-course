@@ -29,7 +29,9 @@ __host__ void myErrorHandler(hipError_t ifail, const std::string file, int line,
                              int fatal);
 
 #define HIP_ASSERT(call)                                                       \
-  { myErrorHandler((call), __FILE__, __LINE__, 1); }
+  {                                                                            \
+    myErrorHandler((call), __FILE__, __LINE__, 1);                             \
+  }
 
 /* The number of integer elements in the array */
 #define ARRAY_LENGTH 256
@@ -81,10 +83,13 @@ int main(int argc, char *argv[]) {
   }
 
   /* TODO: allocate memory on device */
+  HIP_ASSERT(hipMalloc(&d_x, ARRAY_LENGTH * sizeof(double)));
 
   /* TODO: copy input array from host to GPU */
+  HIP_ASSERT(d_x, h_x, ARRAY_LENGTH * sizeof(double), hipMemcpyHostToDevice));
 
   /* TODO: copy the result array back to the host output array */
+  HIP_ASSERT(h_x, d_x, ARRAY_LENGTH * sizeof(double), hipMemcpyDeviceToHost));
 
   /* We can now check the results ... */
   std::cout << "Results:" << std::endl;
