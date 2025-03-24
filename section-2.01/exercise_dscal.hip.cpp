@@ -87,10 +87,12 @@ int main(int argc, char *argv[]) {
   HIP_ASSERT(hipMalloc(&d_x, ARRAY_LENGTH * sizeof(double)));
 
   /* TODO: copy input array from host to GPU */
-  HIP_ASSERT(d_x, h_x, ARRAY_LENGTH * sizeof(double), hipMemcpyHostToDevice));
+  HIP_ASSERT(hipMemcpy(d_x, h_x, ARRAY_LENGTH * sizeof(double),
+                       hipMemcpyHostToDevice));
 
   /* TODO: copy the result array back to the host output array */
-  HIP_ASSERT(h_x, d_x, ARRAY_LENGTH * sizeof(double), hipMemcpyDeviceToHost));
+  HIP_ASSERT(hipMemcpy(h_x, d_x, ARRAY_LENGTH * sizeof(double),
+                       hipMemcpyDeviceToHost));
 
   /* We can now check the results ... */
   std::cout << "Results:" << std::endl;
