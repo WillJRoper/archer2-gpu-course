@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
                        hipMemcpyHostToDevice));
 
   /* TODO: copy the result array back to the host output array */
-  HIP_ASSERT(hipMemcpy(h_x, d_x, ARRAY_LENGTH * sizeof(double),
+  HIP_ASSERT(hipMemcpy(h_out, d_x, ARRAY_LENGTH * sizeof(double),
                        hipMemcpyDeviceToHost));
 
   /* We can now check the results ... */
